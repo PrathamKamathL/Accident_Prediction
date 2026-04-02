@@ -4,16 +4,11 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from Accident_Prediction.src.visualize import plot_2d
 from Accident_Prediction.src.data_loader import data_loader
+from Accident_Prediction.src.preprocess import preprocess_data
 from sklearn.decomposition import PCA
 
 def feature_engineering():
-    data = data_loader()
-    print(data.head())
-    data.drop(columns=['Day_of_week','Owner_of_vehicle','Service_year_of_vehicle', 'Defect_of_vehicle','Road_allignment','Number_of_vehicles_involved', 'Casualty_class', 'Sex_of_casualty', 'Age_band_of_casualty', 'Casualty_severity', 'Work_of_casuality', 'Fitness_of_casuality'
-                       'Time'], inplace=True)
-    #Dropping examples i.e rows which have null
-    data.dropna(inplace=True)
-    print("Feature engineering done")
+    data = preprocess_data()
     print(data.head())
     print("Converting data into format which is processable by model")
     label = LabelEncoder()
@@ -24,6 +19,7 @@ def feature_engineering():
         data[item] = label.fit_transform(data[item])
     pca = PCA(n_components=2)
     df = pca.fit_transform(data)
+    print("Feature engineering done")
     y = data['Accident_severity']
     plot_2d(df,y,'Accident_severity')
     dff = data.drop(columns=['Accident_severity'])
