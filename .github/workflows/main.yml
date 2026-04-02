@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "fsml-cicd" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "fsml-cicd" ]
+    branches: [ "main" ]
 
 jobs:
   build:
