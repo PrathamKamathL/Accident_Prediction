@@ -3,7 +3,7 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 import pickle
 
-from crud_operation.Accident_Prediction.src.features import feature_engineering
+from Accident_Prediction.src.features import feature_engineering
 
 
 def training_decisionTree():
