@@ -24,7 +24,7 @@ jobs:
         pip install -r requirements.txt
 
     # - name: Run pipeline (Train model)
-    #   run: |
+    #   run: | 
     #     python pipeline/pipeline.py
 
     - name: Test FastAPI app startup
