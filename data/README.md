@@ -36,10 +36,10 @@ a.	Meaning and Context:
 | Pedestrian movement | Presence and behaviour of pedestrians increase the risk of severe or fatal outcomes. |
 Cause of accident | Identifies root factors like over-speeding or distraction, which are strongly linked to severity levels.
 b.	Collection Methodology: The dataset was created from Addis Ababa Sub city police departments and has been prepared from manual records of road traffic accidents of years 2017-20. [Mentioned in the reference to dataset]  
-c.	Data Partitioning: The chosen dataset contains a total of 12317 samples. They are split into sets as: training set 70% (8621), validation set 10% (1231), test set 20% (2465) samples respectively.   
-d.	Preprocessing Logs: (Initially 32 features, removed 14 features)
+c.	Data Partitioning: The chosen dataset contains a total of 12317 samples. They are split into sets as: training 60% and test sets (40%).
+d.	Preprocessing Logs: (Initially 30 features, removed 13 features)
 i.	Features removed due to majority of values being blank/Unknown/having more than 80% of values of one category: defect of vehicle, road alignment, number of vehicles involved, casualty severity, service year of vehicle, age band of casualty, fitness of casualty, work of casualty
-ii.	Features removed due to irrelevance to business and ML goal: Accident index, time, day of the week, owner of vehicle, casualty class, sex of casualty  
+ii.	Features removed due to irrelevance to business and ML goal: time, day of the week, owner of vehicle, casualty class, sex of casualty  
 e.	Technical Specifications:
 i.	Storage format: CSV file  
 ii.	Number of examples: 12317 in total  
