@@ -2,11 +2,12 @@ fastapi
 uvicorn
 pandas
 numpy
-scikit-learn
+scikit-learn==1.7.2
 seaborn
 matplotlib
 imblearn
 xgboost
 tensorflow
 keras
-flask
+uvicorn
+fastapi

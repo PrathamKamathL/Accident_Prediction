@@ -2,13 +2,14 @@ from imblearn.over_sampling import SMOTE
 from imblearn.combine import SMOTETomek
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from Accident_Prediction.src.visualize import plot_2d
-from Accident_Prediction.src.data_loader import data_loader
-from Accident_Prediction.src.preprocess import preprocess_data
+from src.visualize import plot_2d
+from src.data_loader import data_loader
+from src.preprocess import preprocess_data
 from sklearn.decomposition import PCA
 
-def feature_engineering():
-    data = preprocess_data()
+def feature_engineering(data):
+    # data = preprocess_data()
+    print("Received preprocessed data from preprocess_data")
     print(data.head())
     print("Converting data into format which is processable by model")
     label = LabelEncoder()
@@ -19,7 +20,6 @@ def feature_engineering():
         data[item] = label.fit_transform(data[item])
     pca = PCA(n_components=2)
     df = pca.fit_transform(data)
-    print("Feature engineering done")
     y = data['Accident_severity']
     plot_2d(df,y,'Accident_severity')
     dff = data.drop(columns=['Accident_severity'])
@@ -27,5 +27,8 @@ def feature_engineering():
     sm = SMOTETomek(random_state=42)
     x_resample, y_resample = sm.fit_resample(x_train, y_train)
     print("Done with feature engineering")
-    return x_resample, y_resample, x_test, y_test
+    return {"x_train":x_resample, 
+            "y_train":y_resample, 
+            "x_test":x_test, 
+            "y_test":y_test}
 
