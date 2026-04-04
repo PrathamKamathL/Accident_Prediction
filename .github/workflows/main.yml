@@ -1,47 +1,36 @@
-name: CI/CD Pipeline
+name: CI/CD Deploy to EC2
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.10"
-
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-
-    # - name: Run pipeline (Train model)
-    #   run: | 
-    #     python pipeline/pipeline.py
-
-    - name: Test FastAPI app startup
-      run: |
-        uvicorn app.app:app --host 127.0.0.1 --port 8000 &
-        sleep 5
-
     - name: Build Docker Image
-      run: |
-        docker build -t fsml-img .
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/fsml-img .
 
-# Docker runs in port no. 8001
-    - name: Run Docker Container
-      run: |
-        docker run -d -p 8001:8000 fsml-img
-        sleep 5
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-    - name: Check API Docs
-      run: |
-        curl http://localhost:8001/docs
+    - name: Push Docker Image
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/fsml-img
+
+    # 🚀 Deploy to EC2
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.EC2_IP }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          docker stop fsml-container || true
+          docker rm fsml-container || true
+          docker pull ${{ secrets.DOCKER_USERNAME }}/fsml-img
+          docker run -d -p 8000:8000 --name fsml-container ${{ secrets.DOCKER_USERNAME }}/fsml-img
