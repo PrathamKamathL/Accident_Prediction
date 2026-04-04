@@ -33,4 +33,4 @@ jobs:
           docker stop fsml-container || true
           docker rm fsml-container || true
           docker pull ${{ secrets.DOCKER_USERNAME }}/fsml-img
-          docker run -d -p 8000:8000 --name fsml-container ${{ secrets.DOCKER_USERNAME }}/fsml-img
+          docker run -d -p 80:8000 --name fsml-container ${{ secrets.DOCKER_USERNAME }}/fsml-img
