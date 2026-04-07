@@ -2,18 +2,14 @@ from imblearn.over_sampling import SMOTE
 from imblearn.combine import SMOTETomek
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from Accident_Prediction.src.visualize import plot_2d
-from Accident_Prediction.src.data_loader import data_loader
+from src.visualize import plot_2d
+from src.data_loader import data_loader
+from src.preprocess import preprocess_data
 from sklearn.decomposition import PCA
 
-def feature_engineering():
-    data = data_loader()
-    print(data.head())
-    data.drop(columns=['Day_of_week','Owner_of_vehicle','Service_year_of_vehicle', 'Defect_of_vehicle','Road_allignment','Number_of_vehicles_involved', 'Casualty_class', 'Sex_of_casualty', 'Age_band_of_casualty', 'Casualty_severity', 'Work_of_casuality', 'Fitness_of_casuality'
-                       'Time'], inplace=True)
-    #Dropping examples i.e rows which have null
-    data.dropna(inplace=True)
-    print("Feature engineering done")
+def feature_engineering(data):
+    # data = preprocess_data()
+    print("Received preprocessed data from preprocess_data")
     print(data.head())
     print("Converting data into format which is processable by model")
     label = LabelEncoder()
@@ -31,5 +27,8 @@ def feature_engineering():
     sm = SMOTETomek(random_state=42)
     x_resample, y_resample = sm.fit_resample(x_train, y_train)
     print("Done with feature engineering")
-    return x_resample, y_resample, x_test, y_test
+    return {"x_train":x_resample, 
+            "y_train":y_resample, 
+            "x_test":x_test, 
+            "y_test":y_test}
 
