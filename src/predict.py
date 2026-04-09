@@ -28,5 +28,10 @@ def transform_input(input_data: dict):
 
 def predict(input_data: dict):
     df = transform_input(input_data)
-    prediction = model.predict(df)
-    return int(prediction[0])
+    prediction = model.predict(df)[0]
+    probabilities = model.predict_proba(df)[0]
+    confidence = max(probabilities)
+    return {
+        "class_id": int(prediction),
+        "confidence": float(confidence)
+    }
