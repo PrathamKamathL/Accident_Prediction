@@ -27,12 +27,15 @@ def predict_accident(data: AccidentInput):
                 input_dict[key] = 1
             if isinstance(value, str) and value.strip() == "":
                 input_dict[key] = defaults.get(key)
-        prediction = predict(input_dict)
+        result = predict(input_dict)
+        prediction = result["class_id"]
+        confidence = result["confidence"]
         predicted_label = severity_mapping.get(prediction, "Unknown")
 
         return {
             "prediction": predicted_label,
-            "class_id": prediction
+            "class_id": prediction,
+            "confidence": round(confidence, 3)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
