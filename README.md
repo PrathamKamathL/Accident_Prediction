@@ -1,4 +1,4 @@
-# Accident Prediction System
+# Accident Severity Prediction
 
 This project predicts accident severity based on input features using a machine learning model. It provides a REST API using FastAPI and is containerized using Docker with CI/CD deployment on AWS EC2.
 
@@ -24,7 +24,7 @@ Referenced by: https://data.mendeley.com/datasets/xytv86278f/1
 
 ## 3. Steps to Run Application
 
-a. Fork the repository
+a. Fork the repository 
 b. Clone the repository
 
 ---
