@@ -1,0 +1,10 @@
+data:
+  raw_data_path: data/fsml_data.csv
+  processed_data_path: data/cleaned.csv
+
+model:
+  model_path: models/model_v1.pkl
+
+logging:
+  log_file: logs/app.log
+  log_level: INFO
