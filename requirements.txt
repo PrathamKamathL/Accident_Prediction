@@ -12,3 +12,4 @@ keras
 uvicorn
 fastapi
 pydantic
+kagglehub
