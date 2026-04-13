@@ -3,7 +3,7 @@ data:
   processed_data_path: data/cleaned.csv
 
 model:
-  model_path: models/model_v1.pkl
+  model_path: models/model_v2.pkl
 
 logging:
   log_file: logs/app.log
